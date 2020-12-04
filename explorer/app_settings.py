@@ -8,9 +8,9 @@ from django.conf import settings
 # }
 # EXPLORER_DEFAULT_CONNECTION = 'my_important_database_readonly_connection'
 
-EXPLORER_CONNECTIONS = getattr(settings, 'EXPLORER_CONNECTIONS', {})
+EXPLORER_CONNECTIONS = getattr(settings, 'EXPLORER_CONNECTIONS', { 'Default': 'readonly' })
 EXPLORER_DEFAULT_CONNECTION = getattr(
-    settings, 'EXPLORER_DEFAULT_CONNECTION', None
+    settings, 'EXPLORER_DEFAULT_CONNECTION', 'readonly'
 )
 
 # Change the behavior of explorer
