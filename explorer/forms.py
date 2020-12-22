@@ -1,6 +1,6 @@
 
 from django.forms import (
-    BooleanField, CharField, Field, ModelForm, ValidationError
+    BooleanField, CharField, Field, ModelForm, ValidationError, Textarea
 )
 from django.forms.widgets import CheckboxInput, Select
 
@@ -8,6 +8,7 @@ from explorer.app_settings import (
     EXPLORER_DEFAULT_CONNECTION, EXPLORER_CONNECTIONS
 )
 from explorer.models import Query, MSG_FAILED_BLACKLIST
+from django.contrib import admin
 
 
 class SqlField(Field):
@@ -44,6 +45,8 @@ class QueryForm(ModelForm):
         if not self.instance.connection:
             self.initial['connection'] = EXPLORER_DEFAULT_CONNECTION
         self.fields['connection'].widget.attrs['class'] = 'form-control'
+        self.fields['sql'].widget = admin.widgets.AdminTextareaWidget(attrs={'rows': 10})
+        self.fields['description'].widget = admin.widgets.AdminTextareaWidget(attrs={'rows': 2})
 
     def clean(self):
         if self.instance and self.data.get('created_by_user', None):
@@ -66,4 +69,4 @@ class QueryForm(ModelForm):
 
     class Meta:
         model = Query
-        fields = ['title', 'sql', 'description', 'snapshot', 'connection']
+        fields = ['title', 'description', 'sql', 'snapshot', 'connection']

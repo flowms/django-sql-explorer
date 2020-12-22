@@ -5,7 +5,7 @@ from explorer import app_settings
 
 
 def query_viewmodel(user, query, title=None, form=None, message=None,
-                    run_query=True, error=None,
+                    run_query=True, error=None, fullscreen=False,
                     rows=app_settings.EXPLORER_DEFAULT_ROWS):
     """
 
@@ -40,5 +40,6 @@ def query_viewmodel(user, query, title=None, form=None, message=None,
         'snapshots': query.snapshots if query.snapshot else [],
         'ql_id': ql.id if ql else None,
         'unsafe_rendering': app_settings.UNSAFE_RENDERING,
+        'fullscreen': fullscreen,
     }
     return ret

@@ -96,7 +96,7 @@
                                 <span class="caret"></span>
                                 <span class="sr-only">{% trans "Toggle Dropdown" %}</span>
                               </button>
-                              <ul class="dropdown-menu">
+                              <ul class="dropdown-menu" style="z-index: 9999;">
                                 {% export_buttons query %}
                                 <li role="separator" class="divider"></li>
                                 <li><input type="submit" value="{% trans 'Save Only' %}" class="btn btn-link" id="save_only"/></li>
@@ -113,7 +113,7 @@
                                 <span class="caret"></span>
                                 <span class="sr-only">{% trans "Toggle Dropdown" %}</span>
                               </button>
-                              <ul class="dropdown-menu">
+                              <ul class="dropdown-menu"  style="z-index: 9999;">
                                 {% export_buttons query %}
                               </ul>
                             </div>

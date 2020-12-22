@@ -80,7 +80,8 @@ class PlayQueryView(PermissionRequiredMixin, ExplorerContextMixin, View):
                 run_query=run_query,
                 error=error,
                 rows=rows,
-                form=form
+                form=form,
+                fullscreen=fullscreen
             )
         )
 
@@ -94,14 +95,15 @@ class QueryView(PermissionRequiredMixin, ExplorerContextMixin, View):
         query.save()  # updates the modified date
         show = url_get_show(request)
         rows = url_get_rows(request)
+        fullscreen = url_get_fullscreen(request)
         vm = query_viewmodel(
             request.user,
             query,
             form=form,
             run_query=show,
-            rows=rows
+            rows=rows,
+            fullscreen=fullscreen
         )
-        fullscreen = url_get_fullscreen(request)
         template = 'fullscreen' if fullscreen else 'query'
         return self.render_template(
             f'explorer/{template}.html', vm
@@ -129,6 +131,7 @@ class QueryView(PermissionRequiredMixin, ExplorerContextMixin, View):
     def get_instance_and_form(request, query_id):
         query = get_object_or_404(Query, pk=query_id)
         query.params = url_get_params(request)
+        query.urlparams = request.GET.get('params', None)
         form = QueryForm(
             request.POST if len(request.POST) else None,
             instance=query
