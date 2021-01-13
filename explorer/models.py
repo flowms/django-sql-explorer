@@ -3,6 +3,7 @@ from time import time
 
 from django.conf import settings
 from django.db import models, DatabaseError, transaction
+from django.contrib.auth.models import Group
 from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -27,6 +28,7 @@ class Query(models.Model):
     title = models.CharField(max_length=255)
     sql = models.TextField(blank=True)
     description = models.TextField(blank=True)
+    group_id = models.ForeignKey(Group, blank=True, null=True, on_delete=models.CASCADE, db_column='group_id', verbose_name='Subscriber Group')
     created_by_user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         null=True,
@@ -57,8 +59,8 @@ class Query(models.Model):
 
     class Meta:
         ordering = ['title']
-        verbose_name = _('Query')
-        verbose_name_plural = _('Queries')
+        verbose_name = _('Report')
+        verbose_name_plural = _('Reports')
 
     def __str__(self):
         return str(self.title)

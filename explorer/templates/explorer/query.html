@@ -13,7 +13,6 @@
 {% block sql_explorer_content %}
 <div class="row">
     <div id="query_area" class="query-area col-md-12">
-        <h2>{% if query %}{{ query.title }}{% if shared %}<small>&nbsp;&nbsp;shared</small>{% endif %}{% else %}{% trans "New Query" %}{% endif %}</h2>
         {% if query %}
             <div class="text-right">
                 <a href="{% url 'explorer_logs' %}?query_id={{ query.id }}"><h2 class="small">{% trans "History" %}</h2></a>

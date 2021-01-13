@@ -45,8 +45,12 @@ class QueryForm(ModelForm):
         if not self.instance.connection:
             self.initial['connection'] = EXPLORER_DEFAULT_CONNECTION
         self.fields['connection'].widget.attrs['class'] = 'form-control'
-        self.fields['sql'].widget = admin.widgets.AdminTextareaWidget(attrs={'rows': 10})
-        self.fields['description'].widget = admin.widgets.AdminTextareaWidget(attrs={'rows': 2})
+        try:
+            self.fields['sql'].widget = admin.widgets.AdminTextareaWidget(attrs={'rows': 10})
+            self.fields['description'].widget = admin.widgets.AdminTextareaWidget(attrs={'rows': 2})
+        except:
+            pass
+
 
     def clean(self):
         if self.instance and self.data.get('created_by_user', None):
