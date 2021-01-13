@@ -60,6 +60,10 @@ class QueryAdmin(admin.ModelAdmin):
             list_filter = ('title',)
         return list_filter
 
+    def save_model(self, request, obj, form, change):
+        obj.created_by_user_id = request.user.id
+        obj.save()
+
 
 
 
