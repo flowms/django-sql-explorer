@@ -25,7 +25,10 @@ class QueryAdmin(admin.ModelAdmin):
         return obj.get_run_count()
 
     def avg_duration(self, obj):
-        return str(int(obj.avg_duration())) + ' ms'
+        if obj.avg_duration():
+            return str(int(obj.avg_duration())) + ' ms'
+        else:
+            return ''
 
     def can_change(self, obj):
         return self.request.user.has_perm('explorer.change_query')
